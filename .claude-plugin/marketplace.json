@@ -9,5 +9,28 @@
   "metadata": {
     "version": "1.0.0"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "bb-code-review",
+      "source": "./plugins/bb-code-review",
+      "description": "Code review commands for BeachBum engineering standards",
+      "version": "1.0.0",
+      "author": {
+        "name": "BeachBum Engineering"
+      },
+      "category": "productivity",
+      "tags": ["code-review", "quality"]
+    },
+    {
+      "name": "bb-project-helper",
+      "source": "./plugins/bb-project-helper",
+      "description": "Project exploration and documentation skills for BeachBum repos",
+      "version": "1.0.0",
+      "author": {
+        "name": "BeachBum Engineering"
+      },
+      "category": "development",
+      "tags": ["documentation", "exploration"]
+    }
+  ]
 }
