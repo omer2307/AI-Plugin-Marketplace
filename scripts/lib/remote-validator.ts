@@ -87,7 +87,7 @@ function isLocalPath(source: PluginEntry["source"]): source is string {
   return typeof source === "string" && source.startsWith("./");
 }
 
-async function validateLocalSource(
+export async function validateLocalSource(
   plugin: PluginEntry,
   source: string,
 ): Promise<ValidationResult> {
