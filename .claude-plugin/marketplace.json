@@ -1,0 +1,13 @@
+{
+  "$schema": "../schemas/marketplace.schema.json",
+  "name": "beachbum-marketplace",
+  "schemaVersion": 1,
+  "description": "Internal Claude Code plugins for BeachBum engineering",
+  "owner": {
+    "name": "BeachBum Engineering"
+  },
+  "metadata": {
+    "version": "1.0.0"
+  },
+  "plugins": []
+}
