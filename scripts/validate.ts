@@ -1,5 +1,6 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { generateReadmeContent } from "./generate-readme.js";
 import {
   validateMarketplaceSchema,
   validateSemantics,
@@ -69,7 +70,41 @@ async function main(): Promise<void> {
     }
   }
 
+  // Pass 3: README staleness check
+  if (
+    data !== null &&
+    typeof data === "object" &&
+    "plugins" in data &&
+    Array.isArray((data as MarketplaceData).plugins)
+  ) {
+    const readmeResult = checkReadmeStaleness(data as MarketplaceData);
+    combined.warnings.push(...readmeResult.warnings);
+  }
+
   reportAndExit(combined);
+}
+
+function checkReadmeStaleness(data: MarketplaceData): ValidationResult {
+  const result: ValidationResult = { errors: [], warnings: [] };
+  const readmePath = resolve("README.md");
+
+  if (!existsSync(readmePath)) {
+    result.warnings.push(
+      "README.md does not exist. Run `npm run generate-readme` to create it.",
+    );
+    return result;
+  }
+
+  const expected = generateReadmeContent(data).replace(/\r\n/g, "\n");
+  const actual = readFileSync(readmePath, "utf-8").replace(/\r\n/g, "\n");
+
+  if (expected !== actual) {
+    result.warnings.push(
+      "README.md is out of date. Run `npm run generate-readme` to update it.",
+    );
+  }
+
+  return result;
 }
 
 main();
