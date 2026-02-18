@@ -5,7 +5,8 @@
   "scripts": {
     "validate": "tsx scripts/validate.ts",
     "health-check": "tsx scripts/health-check.ts",
-    "scaffold-plugin": "tsx scripts/scaffold-plugin.ts"
+    "scaffold-plugin": "tsx scripts/scaffold-plugin.ts",
+    "generate-readme": "tsx scripts/generate-readme.ts"
   },
   "dependencies": {
     "@inquirer/prompts": "^8.2.1",
