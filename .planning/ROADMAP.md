@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Registry Foundation** - Define the marketplace schema, create marketplace.json, and build validation scripts
 - [x] **Phase 2: Seed Content** - Populate registry with real plugins and verify end-to-end health
 - [x] **Phase 3: CLI Tooling** - Scripts to add and remove plugins from the registry programmatically
-- [ ] **Phase 4: Developer Experience** - Plugin scaffold, README catalog, and team-wide settings for easy adoption
+- [x] **Phase 4: Developer Experience** - Plugin scaffold, README catalog, and team-wide settings for easy adoption
 
 ## Phase Details
 
@@ -77,7 +77,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md -- Plugin scaffold CLI with dual-mode (interactive + flags) and file generation
-- [ ] 04-02-PLAN.md -- README catalog generator, validate staleness check, and team settings template
+- [x] 04-02-PLAN.md -- README catalog generator, validate staleness check, and team settings template
 
 ## Progress
 
@@ -89,4 +89,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. Registry Foundation | 2/2 | Complete | 2026-02-15 |
 | 2. Seed Content | 2/2 | Complete | 2026-02-15 |
 | 3. CLI Tooling | 2/2 | Complete | 2026-02-15 |
-| 4. Developer Experience | 1/2 | In Progress | - |
+| 4. Developer Experience | 2/2 | Complete | 2026-02-18 |

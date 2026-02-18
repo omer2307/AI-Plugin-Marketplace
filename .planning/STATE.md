@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Engineers can find and install approved internal plugins for Claude Code with a single command
-**Current focus:** Phase 4: Developer Experience
+**Current focus:** All phases complete
 
 ## Current Position
 
 Phase: 4 of 4 (Developer Experience)
-Plan: 2 of 2 in current phase
-Status: In Progress
-Last activity: 2026-02-18 -- Completed 04-01-PLAN.md
+Plan: 2 of 2 in current phase (COMPLETE)
+Status: Complete
+Last activity: 2026-02-18 -- Completed 04-02-PLAN.md
 
-Progress: [#########.] 93%
+Progress: [##########] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 2.6min
-- Total execution time: 0.30 hours
+- Total execution time: 0.35 hours
 
 **By Phase:**
 
@@ -30,10 +30,10 @@ Progress: [#########.] 93%
 | 01-registry-foundation | 2/2 | 5min | 2.5min |
 | 02-seed-content | 2/2 | 5min | 2.5min |
 | 03-cli-tooling | 2/2 | 5min | 2.5min |
-| 04-developer-experience | 1/2 | 3min | 3min |
+| 04-developer-experience | 2/2 | 6min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (3min), 03-01 (3min), 03-02 (2min), 04-01 (3min)
+- Last 5 plans: 03-01 (3min), 03-02 (2min), 04-01 (3min), 04-02 (3min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -68,6 +68,8 @@ Recent decisions affecting current work:
 - Scaffold CLI uses readMarketplace() for schemaVersion with fallback to 1
 - Post-scaffold validation reads back generated JSON and validates via validatePluginSchema
 - Component directories created at cwd root (not inside .claude-plugin/)
+- Used fileURLToPath entry-point guard to prevent main() side effects on import in dual-use scripts
+- README staleness is a warning (not error) but still causes exit 1 per strict CI convention
 
 ### Pending Todos
 
@@ -80,5 +82,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-18
-Stopped at: Completed 04-01-PLAN.md (scaffold-plugin CLI with dual-mode and file generation)
-Resume file: .planning/phases/04-developer-experience/04-01-SUMMARY.md
+Stopped at: Completed 04-02-PLAN.md (README catalog generator, staleness validation, settings template)
+Resume file: .planning/phases/04-developer-experience/04-02-SUMMARY.md
