@@ -24,14 +24,14 @@ The user may provide a source in any of these forms:
 | GitHub HTTPS | `https://github.com/owner/repo` or `https://github.com/owner/repo.git` | `githubSource` |
 | GitHub SSH | `git@github.com:owner/repo.git` | `githubSource` |
 | Other HTTPS git URL | `https://bitbucket.org/owner/repo.git` | `urlSource` |
-| Other SSH git URL | `git@bitbucket.org:owner/repo.git` | `sshSource` |
+| Other SSH git URL | `git@bitbucket.org:owner/repo.git` | `urlSource` (convert to HTTPS) |
 
 ## How to determine the source object
 
 ### Step 1: Detect the source type
 
 1. **GitHub** -- the host is `github.com` (from URL) or the input matches `owner/repo` (no dots, slashes, or protocol).
-2. **Other SSH** -- SSH URL where the host is NOT `github.com` (e.g. `git@bitbucket.org:...`).
+2. **Other SSH** -- SSH URL where the host is NOT `github.com` (e.g. `git@bitbucket.org:...`). Convert to HTTPS `urlSource`.
 3. **Other HTTPS** -- HTTPS git URL where the host is NOT `github.com`.
 
 ### Step 2: Build the source object
@@ -47,17 +47,9 @@ The user may provide a source in any of these forms:
 - The `repo` field must match pattern `^[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$`.
 - Optionally include `"ref"` (branch/tag) if the user specifies one.
 
-**Other SSH** (`sshSource` in schema):
-```json
-{
-  "source": "ssh",
-  "url": "git@<host>:<owner>/<repo>.git"
-}
-```
-- Keep the SSH URL as-is. Do NOT convert to HTTPS.
-- The URL **must** end in `.git`. Append `.git` if missing.
-- The URL must match pattern `^git@[a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+\.git$`.
-- Optionally include `"ref"` if the user specifies a branch/tag.
+**Other SSH** -- convert to `urlSource`:
+- Convert `git@<host>:<owner>/<repo>.git` to `https://<host>/<owner>/<repo>.git`
+- Then use the HTTPS `urlSource` format below.
 
 **Other HTTPS** (`urlSource` in schema):
 ```json
@@ -68,6 +60,20 @@ The user may provide a source in any of these forms:
 ```
 - The URL **must** end in `.git` (schema pattern: `\.git$`). Append `.git` if missing.
 - Optionally include `"ref"` if the user specifies a branch/tag.
+
+### SSH authentication note
+
+Since we use HTTPS URLs in the marketplace but may need SSH keys for private repos, team members should configure git to rewrite HTTPS to SSH automatically:
+
+```bash
+# For Bitbucket:
+git config --global url."git@bitbucket.org:".insteadOf "https://bitbucket.org/"
+
+# For GitLab (if needed):
+git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com/"
+```
+
+This lets Claude Code's schema validation pass (it only recognizes `urlSource` with HTTPS URLs) while still using SSH keys for actual git operations.
 
 ## How to build the plugin entry
 
@@ -108,8 +114,8 @@ If validation fails, fix the entry and re-run. The `--local-only` flag skips net
 
 User says: "add plugin git@bitbucket.org:paraplay/omnisharp-mcp.git"
 
-1. Detect: SSH URL, host is `bitbucket.org` (not GitHub) -> `sshSource`.
-2. Keep SSH URL as-is.
+1. Detect: SSH URL, host is `bitbucket.org` (not GitHub) -> convert to HTTPS `urlSource`.
+2. Convert SSH to HTTPS: `https://bitbucket.org/paraplay/omnisharp-mcp.git`.
 3. Derive name: `omnisharp-mcp`.
 4. Ask user for description, category, and tags.
 5. Build entry:
@@ -117,8 +123,8 @@ User says: "add plugin git@bitbucket.org:paraplay/omnisharp-mcp.git"
    {
      "name": "omnisharp-mcp",
      "source": {
-       "source": "ssh",
-       "url": "git@bitbucket.org:paraplay/omnisharp-mcp.git"
+       "source": "url",
+       "url": "https://bitbucket.org/paraplay/omnisharp-mcp.git"
      },
      "description": "<user-provided>",
      "category": "<user-chosen>",
@@ -134,5 +140,4 @@ User says: "add plugin git@bitbucket.org:paraplay/omnisharp-mcp.git"
 - Marketplace file: `.claude-plugin/marketplace.json`
 - `githubSource` requires `"source": "github"` and `"repo"` in `owner/repo` format.
 - `urlSource` requires `"source": "url"` and `"url"` as a valid HTTPS URI ending in `.git`.
-- `sshSource` requires `"source": "ssh"` and `"url"` in `git@host:owner/repo.git` format.
 - Plugin names must be unique across the marketplace.

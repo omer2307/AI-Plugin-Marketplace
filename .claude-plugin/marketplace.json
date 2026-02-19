@@ -13,8 +13,8 @@
     {
       "name": "omnisharp-mcp",
       "source": {
-        "source": "ssh",
-        "url": "git@bitbucket.org:paraplay/omnisharp-mcp.git"
+        "source": "url",
+        "url": "https://bitbucket.org/paraplay/omnisharp-mcp.git"
       },
       "description": "MCP server providing C# code analysis via OmniSharp",
       "category": "development",

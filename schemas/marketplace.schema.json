@@ -96,12 +96,9 @@
             },
             {
               "$ref": "#/$defs/urlSource"
-            },
-            {
-              "$ref": "#/$defs/sshSource"
             }
           ],
-          "errorMessage": "source must be a relative path (./...), a GitHub source object, a URL source object, or an SSH source object"
+          "errorMessage": "source must be a relative path (./...), a GitHub source object, or a URL source object"
         },
         "description": {
           "type": "string"
@@ -198,29 +195,6 @@
           "format": "uri",
           "pattern": "\\.git$",
           "errorMessage": "url must be a valid git repository URL ending in .git"
-        },
-        "ref": {
-          "type": "string"
-        },
-        "sha": {
-          "type": "string",
-          "pattern": "^[a-f0-9]{40}$"
-        }
-      }
-    },
-    "sshSource": {
-      "type": "object",
-      "required": ["source", "url"],
-      "additionalProperties": false,
-      "properties": {
-        "source": {
-          "type": "string",
-          "const": "ssh"
-        },
-        "url": {
-          "type": "string",
-          "pattern": "^git@[a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+\\.git$",
-          "errorMessage": "url must be an SSH git URL in git@host:owner/repo.git format"
         },
         "ref": {
           "type": "string"
