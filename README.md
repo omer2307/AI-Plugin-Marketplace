@@ -10,26 +10,11 @@ A centralized plugin marketplace for Claude Code CLI.
 
 ## Adding a Plugin
 
-### Supported sources
-
-| Type | Example |
-| ---- | ------- |
-| GitHub | `https://github.com/owner/repo` or `owner/repo` |
-| Other git URL | `https://bitbucket.org/owner/repo.git` |
-
-### Steps
-
-1. Build the source object per the schema:
-   - **GitHub**: `{ "source": "github", "repo": "owner/repo" }`
-   - **Other git**: `{ "source": "url", "url": "https://host/owner/repo.git" }`
-2. Add the plugin entry to `.claude-plugin/marketplace.json`, inserting alphabetically by name.
-3. Run validation:
-
-```bash
-npm run generate-readme && npm run validate -- --local-only
+```
+add plugin <github-url-or-git-url>
 ```
 
-See `.claude/skills/add-plugin.md` for full details on building plugin entries.
+The `add-plugin` skill handles source detection, entry creation, validation, and README regeneration.
 
 ---
 
