@@ -12,7 +12,14 @@ export interface UrlSource {
   sha?: string;
 }
 
-export type PluginSource = string | GitHubSource | UrlSource;
+export interface SshSource {
+  source: "ssh";
+  url: string;
+  ref?: string;
+  sha?: string;
+}
+
+export type PluginSource = string | GitHubSource | UrlSource | SshSource;
 
 export interface PluginEntry {
   name: string;

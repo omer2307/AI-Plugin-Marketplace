@@ -83,6 +83,17 @@ function isUrlSource(
   );
 }
 
+function isSshSource(
+  source: PluginEntry["source"],
+): source is { source: "ssh"; url: string; ref?: string; sha?: string } {
+  return (
+    typeof source === "object" &&
+    source !== null &&
+    "source" in source &&
+    source.source === "ssh"
+  );
+}
+
 function isLocalPath(source: PluginEntry["source"]): source is string {
   return typeof source === "string" && source.startsWith("./");
 }
@@ -225,6 +236,28 @@ async function validateUrlSource(
   return result;
 }
 
+async function validateSshSource(
+  plugin: PluginEntry,
+  source: { source: "ssh"; url: string },
+): Promise<ValidationResult> {
+  const result: ValidationResult = { errors: [], warnings: [] };
+
+  try {
+    const { execFileSync } = await import("node:child_process");
+    execFileSync("git", ["ls-remote", source.url], {
+      timeout: REQUEST_TIMEOUT_MS,
+      stdio: "pipe",
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    result.errors.push(
+      `Plugin "${plugin.name}": SSH source "${source.url}" not reachable: ${message}`,
+    );
+  }
+
+  return result;
+}
+
 export async function validateRemoteReferences(
   plugins: PluginEntry[],
   options: RemoteValidatorOptions = {},
@@ -244,6 +277,8 @@ export async function validateRemoteReferences(
       pluginResult = await validateGitHubSource(plugin, plugin.source);
     } else if (isUrlSource(plugin.source)) {
       pluginResult = await validateUrlSource(plugin, plugin.source);
+    } else if (isSshSource(plugin.source)) {
+      pluginResult = await validateSshSource(plugin, plugin.source);
     } else {
       result.errors.push(
         `Plugin "${plugin.name}": unrecognized source type`,

@@ -1,6 +1,6 @@
 ---
 name: add-plugin
-description: Add a plugin to the marketplace from a git repository or local path. Handles GitHub, Bitbucket, GitLab URLs (HTTPS or SSH) and local paths.
+description: Add a plugin to the marketplace from a git repository. Handles GitHub, Bitbucket, GitLab URLs (HTTPS or SSH).
 argument-hint: [source-url]
 ---
 
@@ -20,21 +20,19 @@ The user may provide a source in any of these forms:
 
 | Input | Example | Source type |
 |---|---|---|
-| Local path | `plugins/my-plugin` or `./plugins/my-plugin` | Local string |
 | GitHub shorthand | `owner/repo` | `githubSource` |
 | GitHub HTTPS | `https://github.com/owner/repo` or `https://github.com/owner/repo.git` | `githubSource` |
 | GitHub SSH | `git@github.com:owner/repo.git` | `githubSource` |
 | Other HTTPS git URL | `https://bitbucket.org/owner/repo.git` | `urlSource` |
-| Other SSH git URL | `git@bitbucket.org:owner/repo.git` | `urlSource` |
+| Other SSH git URL | `git@bitbucket.org:owner/repo.git` | `sshSource` |
 
 ## How to determine the source object
 
 ### Step 1: Detect the source type
 
-1. **Local path** -- starts with `./` or contains no `:` / `@` and looks like a relative path.
-   Delegate to the existing script: `npx tsx scripts/add-plugin.ts` (it handles local sources).
-2. **GitHub** -- the host is `github.com` (from URL) or the input matches `owner/repo` (no dots, slashes, or protocol).
-3. **Other remote** -- any other SSH or HTTPS git URL.
+1. **GitHub** -- the host is `github.com` (from URL) or the input matches `owner/repo` (no dots, slashes, or protocol).
+2. **Other SSH** -- SSH URL where the host is NOT `github.com` (e.g. `git@bitbucket.org:...`).
+3. **Other HTTPS** -- HTTPS git URL where the host is NOT `github.com`.
 
 ### Step 2: Build the source object
 
@@ -49,24 +47,27 @@ The user may provide a source in any of these forms:
 - The `repo` field must match pattern `^[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$`.
 - Optionally include `"ref"` (branch/tag) if the user specifies one.
 
-**Other remote** (`urlSource` in schema):
+**Other SSH** (`sshSource` in schema):
+```json
+{
+  "source": "ssh",
+  "url": "git@<host>:<owner>/<repo>.git"
+}
+```
+- Keep the SSH URL as-is. Do NOT convert to HTTPS.
+- The URL **must** end in `.git`. Append `.git` if missing.
+- The URL must match pattern `^git@[a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+\.git$`.
+- Optionally include `"ref"` if the user specifies a branch/tag.
+
+**Other HTTPS** (`urlSource` in schema):
 ```json
 {
   "source": "url",
   "url": "<https-url-ending-in-.git>"
 }
 ```
-- **Always convert SSH URLs to HTTPS.** The schema requires `"format": "uri"` which means valid HTTPS.
-  - `git@bitbucket.org:owner/repo.git` becomes `https://bitbucket.org/owner/repo.git`
-  - `git@gitlab.com:owner/repo.git` becomes `https://gitlab.com/owner/repo.git`
 - The URL **must** end in `.git` (schema pattern: `\.git$`). Append `.git` if missing.
 - Optionally include `"ref"` if the user specifies a branch/tag.
-
-**Local** (string):
-```json
-"./plugins/my-plugin"
-```
-- Must start with `./` (schema pattern: `^\.\/`).
 
 ## How to build the plugin entry
 
@@ -74,7 +75,7 @@ The full entry in `marketplace.json` looks like:
 ```json
 {
   "name": "<kebab-case-name>",
-  "source": <source object or string>,
+  "source": <source object>,
   "description": "<one-line description>",
   "category": "<category>",
   "tags": ["<tag1>", "<tag2>"]
@@ -107,8 +108,8 @@ If validation fails, fix the entry and re-run. The `--local-only` flag skips net
 
 User says: "add plugin git@bitbucket.org:paraplay/omnisharp-mcp.git"
 
-1. Detect: SSH URL, host is `bitbucket.org` (not GitHub) -> `urlSource`.
-2. Convert SSH to HTTPS: `https://bitbucket.org/paraplay/omnisharp-mcp.git`.
+1. Detect: SSH URL, host is `bitbucket.org` (not GitHub) -> `sshSource`.
+2. Keep SSH URL as-is.
 3. Derive name: `omnisharp-mcp`.
 4. Ask user for description, category, and tags.
 5. Build entry:
@@ -116,8 +117,8 @@ User says: "add plugin git@bitbucket.org:paraplay/omnisharp-mcp.git"
    {
      "name": "omnisharp-mcp",
      "source": {
-       "source": "url",
-       "url": "https://bitbucket.org/paraplay/omnisharp-mcp.git"
+       "source": "ssh",
+       "url": "git@bitbucket.org:paraplay/omnisharp-mcp.git"
      },
      "description": "<user-provided>",
      "category": "<user-chosen>",
@@ -132,6 +133,6 @@ User says: "add plugin git@bitbucket.org:paraplay/omnisharp-mcp.git"
 - Schema file: `schemas/marketplace.schema.json`
 - Marketplace file: `.claude-plugin/marketplace.json`
 - `githubSource` requires `"source": "github"` and `"repo"` in `owner/repo` format.
-- `urlSource` requires `"source": "url"` and `"url"` as a valid URI ending in `.git`.
-- Local source is a plain string starting with `./`.
+- `urlSource` requires `"source": "url"` and `"url"` as a valid HTTPS URI ending in `.git`.
+- `sshSource` requires `"source": "ssh"` and `"url"` in `git@host:owner/repo.git` format.
 - Plugin names must be unique across the marketplace.
