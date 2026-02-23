@@ -11,6 +11,13 @@
   },
   "plugins": [
     {
+      "name": "code-review",
+      "source": "./local-plugins/code-review.md",
+      "description": "Review code changes in the RummyStars client",
+      "category": "development",
+      "tags": ["unity", "csharp", "code-review"]
+    },
+    {
       "name": "omnisharp-mcp",
       "source": {
         "source": "url",

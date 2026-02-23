@@ -6,6 +6,7 @@ A centralized plugin marketplace for Claude Code CLI.
 
 | Name | Description | Category | Setup |
 | ---- | ----------- | -------- | ----- |
+| code-review | Review code changes in the RummyStars client | development |  |
 | omnisharp-mcp | MCP server providing C# code analysis via OmniSharp | development | Run `/setup-omnisharp-mcp` in Claude Code CLI if mcp is failing |
 
 ## Adding a Plugin
