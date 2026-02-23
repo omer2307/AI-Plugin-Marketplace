@@ -1,8 +1,0 @@
-{
-  "name": "bb-code-review",
-  "description": "Code review commands for BeachBum engineering standards",
-  "version": "1.0.0",
-  "author": {
-    "name": "BeachBum Engineering"
-  }
-}
