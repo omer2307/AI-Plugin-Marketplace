@@ -14,15 +14,16 @@ export function generateReadmeContent(data: MarketplaceData): string {
     "",
     "## Available Plugins",
     "",
-    "| Name | Description | Category |",
-    "| ---- | ----------- | -------- |",
+    "| Name | Description | Category | Setup |",
+    "| ---- | ----------- | -------- | ----- |",
   ];
 
   for (const plugin of data.plugins) {
     const name = plugin.name;
     const description = plugin.description || "";
     const category = plugin.category || "";
-    lines.push(`| ${name} | ${description} | ${category} |`);
+    const setup = plugin.setup || "";
+    lines.push(`| ${name} | ${description} | ${category} | ${setup} |`);
   }
 
   lines.push(

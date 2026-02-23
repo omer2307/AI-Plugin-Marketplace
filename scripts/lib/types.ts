@@ -30,6 +30,7 @@ export interface PluginEntry {
   category?: string;
   tags?: string[];
   strict?: boolean;
+  setup?: string;
   commands?: unknown;
   agents?: unknown;
   hooks?: unknown;

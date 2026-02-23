@@ -4,9 +4,9 @@ A centralized plugin marketplace for Claude Code CLI.
 
 ## Available Plugins
 
-| Name | Description | Category |
-| ---- | ----------- | -------- |
-| omnisharp-mcp | MCP server providing C# code analysis via OmniSharp | development |
+| Name | Description | Category | Setup |
+| ---- | ----------- | -------- | ----- |
+| omnisharp-mcp | MCP server providing C# code analysis via OmniSharp | development | Run `/setup-omnisharp-mcp` in Claude Code CLI |
 
 ## Adding a Plugin
 
