@@ -148,10 +148,6 @@
         "strict": {
           "type": "boolean"
         },
-        "setup": {
-          "type": "string",
-          "description": "Setup instructions displayed in the README"
-        },
         "commands": {},
         "agents": {},
         "hooks": {},

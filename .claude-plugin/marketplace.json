@@ -25,8 +25,7 @@
       },
       "description": "MCP server providing C# code analysis via OmniSharp",
       "category": "development",
-      "tags": ["csharp", "mcp", "omnisharp", "dotnet"],
-      "setup": "Run `/setup-omnisharp-mcp` in Claude Code CLI if mcp is failing"
+      "tags": ["csharp", "mcp", "omnisharp", "dotnet"]
     }
   ]
 }

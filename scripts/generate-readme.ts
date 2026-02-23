@@ -5,6 +5,10 @@ import chalk from "chalk";
 import { readMarketplace } from "./lib/marketplace-io.js";
 import type { MarketplaceData } from "./lib/types.js";
 
+const SETUP_NOTES: Record<string, string> = {
+  "omnisharp-mcp": "Run `/setup-omnisharp-mcp` in Claude Code CLI if mcp is failing",
+};
+
 export function generateReadmeContent(data: MarketplaceData): string {
   const title = data.description || data.name;
   const lines: string[] = [
@@ -22,7 +26,7 @@ export function generateReadmeContent(data: MarketplaceData): string {
     const name = plugin.name;
     const description = plugin.description || "";
     const category = plugin.category || "";
-    const setup = plugin.setup || "";
+    const setup = SETUP_NOTES[plugin.name] || "";
     lines.push(`| ${name} | ${description} | ${category} | ${setup} |`);
   }
 
