@@ -11,7 +11,7 @@ A centralized plugin marketplace for Claude Code CLI.
 ## Adding a Plugin
 
 ```
-add plugin <github-url-or-git-url>
+add plugin <git-url>
 ```
 
 The `add-plugin` skill handles source detection, entry creation, validation, and README regeneration.
