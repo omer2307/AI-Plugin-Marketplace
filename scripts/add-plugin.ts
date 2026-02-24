@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { parseArgs } from "node:util";
 import chalk from "chalk";
@@ -51,7 +51,11 @@ function parseTags(raw: string): string[] {
 function readPluginJson(
   sourcePath: string,
 ): Record<string, unknown> | undefined {
-  const manifestPath = resolve(sourcePath, ".claude-plugin", "plugin.json");
+  const resolved = resolve(sourcePath);
+  if (!existsSync(resolved) || statSync(resolved).isFile()) {
+    return undefined;
+  }
+  const manifestPath = resolve(resolved, ".claude-plugin", "plugin.json");
   if (!existsSync(manifestPath)) {
     return undefined;
   }

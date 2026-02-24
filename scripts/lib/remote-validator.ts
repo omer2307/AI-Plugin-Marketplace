@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import type { PluginEntry, ValidationResult } from "./types.js";
 import { validatePluginSchema } from "./schema-validator.js";
@@ -93,15 +93,20 @@ export async function validateLocalSource(
 ): Promise<ValidationResult> {
   const result: ValidationResult = { errors: [], warnings: [] };
 
-  const pluginDir = resolve(source);
-  if (!existsSync(pluginDir)) {
+  const resolved = resolve(source);
+  if (!existsSync(resolved)) {
     result.errors.push(
       `Plugin "${plugin.name}": local path "${source}" does not exist`,
     );
     return result;
   }
 
-  const manifestPath = resolve(pluginDir, ".claude-plugin", "plugin.json");
+  // Single file (e.g. .md skill) -- just verify it exists (already done above)
+  if (statSync(resolved).isFile()) {
+    return result;
+  }
+
+  const manifestPath = resolve(resolved, ".claude-plugin", "plugin.json");
   if (!existsSync(manifestPath)) {
     result.errors.push(
       `Plugin "${plugin.name}": missing .claude-plugin/plugin.json in "${source}"`,
