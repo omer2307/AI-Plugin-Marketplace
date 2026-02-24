@@ -32,6 +32,12 @@ export function generateReadmeContent(data: MarketplaceData): string {
 
   lines.push(
     "",
+    "## Setup",
+    "",
+    "```",
+    "/plugin marketplace add <marketplace-ssh-url>",
+    "```",
+    "",
     "## Adding a Plugin",
     "",
     "```",

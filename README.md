@@ -8,6 +8,12 @@ A centralized plugin marketplace for Claude Code CLI.
 | ---- | ----------- | -------- | ----- |
 | omnisharp-mcp | MCP server providing C# code analysis via OmniSharp | development | Run `/setup-omnisharp-mcp` in Claude Code CLI if mcp is failing |
 
+## Setup
+
+```
+/plugin marketplace add <marketplace-ssh-url>
+```
+
 ## Adding a Plugin
 
 ```
