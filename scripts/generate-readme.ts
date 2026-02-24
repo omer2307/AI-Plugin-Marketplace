@@ -44,6 +44,8 @@ export function generateReadmeContent(data: MarketplaceData): string {
     "add plugin <git-url>",
     "```",
     "",
+    "Add SSH url if BeachBum hosted repo, and HTTP if open source repo.",
+    "",
     "The `add-plugin` skill handles source detection, entry creation, validation, and README regeneration.",
     "",
     "---",
