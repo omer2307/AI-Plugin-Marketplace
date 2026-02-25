@@ -1,6 +1,6 @@
-# BeachBum Plugins
+# Omer Somekh Plugins
 
-Internal Claude Code plugin marketplace for BeachBum engineering.
+Internal Claude Code plugin marketplace for Omer Somekh.
 
 ## Skills
 

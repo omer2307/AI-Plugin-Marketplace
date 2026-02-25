@@ -1,10 +1,10 @@
 {
   "$schema": "../schemas/marketplace.schema.json",
-  "name": "beachbum-marketplace",
+  "name": "omer-somekh-marketplace",
   "schemaVersion": 1,
-  "description": "Internal Claude Code plugins for BeachBum engineering",
+  "description": "Internal Claude Code plugins for Omer Somekh",
   "owner": {
-    "name": "BeachBum Engineering"
+    "name": "Omer Somekh"
   },
   "metadata": {
     "version": "1.0.0"

@@ -22,7 +22,7 @@ The user may provide a source in any of these forms:
 
 | Input | Example | Source type |
 |---|---|---|
-| Local file path (absolute) | `/Users/.../BeachBum-Plugins/local-plugins/review.md` | `localSource` |
+| Local file path (absolute) | `/Users/.../omer-somekh-plugins/local-plugins/review.md` | `localSource` |
 | Local file path (relative) | `local-plugins/review.md` or `./local-plugins/review.md` | `localSource` |
 | GitHub shorthand | `owner/repo` | `githubSource` |
 | GitHub HTTPS | `https://github.com/owner/repo` or `https://github.com/owner/repo.git` | `githubSource` |
@@ -36,7 +36,7 @@ The user may provide a source in any of these forms:
 
 1. **Local file** -- the input is a file path (absolute or relative) pointing to a file inside this repository. Detected when:
    - The path starts with `/`, `./`, or `../`
-   - The path points to an existing file within the BeachBum-Plugins repo
+   - The path points to an existing file within the omer-somekh-plugins repo
    - The path contains a file extension (e.g. `.md`)
    - The input does NOT look like a URL or `owner/repo` shorthand
 2. **GitHub** -- the host is `github.com` (from URL) or the input matches `owner/repo` (no dots, slashes, or protocol).

@@ -1,9 +1,9 @@
 {
   "extraKnownMarketplaces": {
-    "beachbum-marketplace": {
+    "omer-somekh-marketplace": {
       "source": {
         "source": "github",
-        "repo": "BeachBum-Engineering/BeachBum-Plugins"
+        "repo": "omer-somekh/omer-somekh-plugins"
       }
     }
   }
