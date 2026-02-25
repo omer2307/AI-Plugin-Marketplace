@@ -1,0 +1,29 @@
+{
+  "$schema": "../schemas/marketplace.schema.json",
+  "name": "beachbum-marketplace",
+  "schemaVersion": 1,
+  "description": "Internal Claude Code plugins for BeachBum engineering",
+  "owner": {
+    "name": "BeachBum Engineering"
+  },
+  "metadata": {
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "omnisharp-mcp",
+      "source": {
+        "source": "url",
+        "url": "https://bitbucket.org/paraplay/omnisharp-mcp.git"
+      },
+      "description": "MCP server providing C# code analysis via OmniSharp",
+      "category": "development",
+      "tags": [
+        "csharp",
+        "mcp",
+        "omnisharp",
+        "dotnet"
+      ]
+    }
+  ]
+}

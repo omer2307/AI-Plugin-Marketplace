@@ -1,0 +1,10 @@
+{
+  "extraKnownMarketplaces": {
+    "beachbum-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "BeachBum-Engineering/BeachBum-Plugins"
+      }
+    }
+  }
+}
